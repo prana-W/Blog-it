@@ -58,6 +58,7 @@ class AuthService {
             return this.account.deleteSessions()
         } catch (error) {
             console.error('There was a problem in logging out!')
+            return false
         }
     }
 }
