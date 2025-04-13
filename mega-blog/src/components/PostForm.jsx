@@ -5,7 +5,7 @@ import storageService from "../appwrite/storage";
 import databaseService from "../appwrite/database";
 
 function PostForm({ post }) {
-  const { register, handleSubmit, watch, setValue, getValue } = useForm({
+  const { register, handleSubmit, watch, setValue, getValues } = useForm({
     defaultValues: {
       title: post?.title || "",
       slug: post?.$id || "",
@@ -39,16 +39,15 @@ function PostForm({ post }) {
     } else {
       const file = await storageService.uploadFile(data.image[0]);
 
-      if (file) {
-        const dbPost = await databaseService.createPost({
-          ...data,
-          userId: userData.$id,
-          featuredImage: file.$id,
-        });
+      const dbPost = await databaseService.createPost({
+        ...data,
+        userId: userData.$id,
+        //we have added a default image in the storage, which will be used when the user hasn't uplaoded any file
+        featuredImage: file ? file.$id : "defaultImage",
+      });
 
-        if (dbPost) {
-          navigate(`/post/${dbPost.$id}`);
-        }
+      if (dbPost) {
+        navigate(`/post/${dbPost.$id}`);
       }
     }
   };
@@ -56,9 +55,8 @@ function PostForm({ post }) {
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
       return value.trim().toLowerCase().replace(/\s+/g, "-");
-
-      return "";
     }
+    return ""
   }, []);
 
   React.useEffect(() => {
@@ -92,7 +90,7 @@ function PostForm({ post }) {
           }}
         />
         <RTE
-          label="Content :"
+          label="Content: "
           name="content"
           control={control}
           defaultValue={getValues("content")}

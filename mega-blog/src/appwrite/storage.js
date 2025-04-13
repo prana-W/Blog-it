@@ -10,7 +10,7 @@ class StorageService {
       .setEndpoint(conf.appwriteURL)
       .setProject(conf.appwriteProjectId);
 
-    this.storage = new Storage(client);
+    this.storage = new Storage(this.client);
   }
 
   //Upload file (image)
