@@ -38,10 +38,10 @@ class StorageService {
     }
   }
 
-  //File Preview
-  filePreview(fileId) {
+  //File View
+  fileView(fileId) {
     try {
-      return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
+      return this.storage.getFileView(conf.appwriteBucketId, fileId);
     } catch (error) {
       console.error("There was a problem in previewing the file!");
     }

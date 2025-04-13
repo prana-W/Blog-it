@@ -7,7 +7,7 @@ import { Home, Login, Signup, Error } from "../Pages";
 import store from './store/store.js'
 import {Provider} from 'react-redux'
 
-const route = createBrowserRouter([
+const routes = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -33,7 +33,7 @@ const route = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store = {store}>
-    <RouterProvider router={route} />
+    <RouterProvider router={routes} />
     </Provider>
   </StrictMode>
 );

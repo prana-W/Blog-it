@@ -25,7 +25,7 @@ class AuthService {
             )
 
             if (userAccount) {
-                return this.login({email, password})
+                return await this.login({email, password})
             }
             
         } catch (error) {
@@ -36,7 +36,7 @@ class AuthService {
     //login
     async login({email, password}) {
         try {
-            return await this.account.createEmailPasswordSession(email. password)
+            return await this.account.createEmailPasswordSession(email, password)
         } catch (error) {
             console.error('There was an error in logging in!')
         }
@@ -46,7 +46,7 @@ class AuthService {
 
     async getCurrentUser () {
         try {
-            return this.account.get()
+            return await this.account.get()
         } catch (error) {
             console.error('There was a problem in getting current user!')
         }
@@ -55,7 +55,7 @@ class AuthService {
     //logout
     async logout() {
         try {
-            return this.account.deleteSessions()
+            return await this.account.deleteSessions()
         } catch (error) {
             console.error('There was a problem in logging out!')
             return false

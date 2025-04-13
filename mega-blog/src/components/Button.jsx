@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Button({btnText}) {
+function Button({children}) {
   return (
-    <button>{btnText}</button>
+    <button>{children}</button>
   )
 }
 
