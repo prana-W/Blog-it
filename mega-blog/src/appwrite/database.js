@@ -83,7 +83,7 @@ class dbService {
   }
 
   //Fetch multiple Data from the database
-  async getPost(queries = [Query.equal("status", "active")]) {
+  async getPosts(queries = [Query.equal("status", "active")]) {
     try {
       return await this.database.listDocuments(
         conf.appwriteDatabaseId,
@@ -97,6 +97,6 @@ class dbService {
   }
 }
 
-const databaseService = new databaseService();
+const databaseService = new dbService();
 
 export default databaseService;

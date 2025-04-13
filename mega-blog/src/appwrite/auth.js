@@ -42,7 +42,7 @@ class AuthService {
         }
     }
 
-    //get cuurent user
+    //get curent user
 
     async getCurrentUser () {
         try {
