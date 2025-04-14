@@ -77,7 +77,7 @@ class dbService {
         slug
       );
     } catch (error) {
-      console.error("There was a problem in getting post!");
+      console.error("There was a problem in getting post!", error);
       return false;
     }
   }

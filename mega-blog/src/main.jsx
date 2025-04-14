@@ -9,6 +9,7 @@ import {Provider} from 'react-redux'
 import AuthLayout from "./components/AuthLayout.jsx";
 import AllPosts from "../Pages/AllPosts.jsx";
 import AddPost from "../Pages/AddPost.jsx";
+import Post from "../Pages/Post.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -66,6 +67,15 @@ const routes = createBrowserRouter([
   
           )
       },
+      {
+        path: "/post/:slug",
+        element: (
+          <AuthLayout authentication={true}>
+          <Post/>
+          </AuthLayout>
+  
+          )
+      }
     ],
   },
 ]);
