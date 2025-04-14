@@ -17,7 +17,15 @@ function AuthLayout({ children, authentication = true }) {
     setLoader(false);
   }, [authentication, authStatus, navigate]);
 
-  return loader ? (<h1>Loading...</h1>) : <>{ children }</>;
+  return loader ? (
+    <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+      <h1 className="text-xl font-medium text-gray-800 dark:text-gray-200 animate-pulse">
+        Loading...
+      </h1>
+    </div>
+  ) : (
+    <>{children}</>
+  );
 }
 
 export default AuthLayout;

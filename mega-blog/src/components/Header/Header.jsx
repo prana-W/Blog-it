@@ -1,19 +1,16 @@
 import React from "react";
 import LogoutBtn from "../LogoutBtn";
-import store from "../../store/store";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { Login, Signup } from "../../../Pages";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const isLoggedin = useSelector((state) => state.auth.status);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const navItems = [
     {
       name: "Home",
-      slug: "",
+      slug: "/",
       active: true,
     },
     {
@@ -44,15 +41,30 @@ function Header() {
   ];
 
   return (
-    <>
-      <div>Header</div>
-
-      {navItems.map((item) => (item.active ? <li key={item.slug}><button onClick={() => {
-        navigate(item.slug)
-      }}>{item.name}</button></li> : null))}
-
-      {isLoggedin ? (<li key = {Math.random()}><LogoutBtn /></li>) : (null)}
-    </>
+    <div className="bg-white dark:bg-gray-900 p-4 shadow-md">
+      <nav>
+        <ul className="flex space-x-4">
+          {navItems.map(
+            (item) =>
+              item.active && (
+                <li key={item.slug}>
+                  <NavLink
+                    to={item.slug}
+                    className="text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-200"
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              )
+          )}
+          {isLoggedin && (
+            <li>
+              <LogoutBtn />
+            </li>
+          )}
+        </ul>
+      </nav>
+    </div>
   );
 }
 

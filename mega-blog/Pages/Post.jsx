@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import databaseService from "../src/appwrite/database";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 
@@ -11,7 +10,6 @@ function Post() {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
-
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
@@ -36,6 +34,7 @@ function Post() {
         .catch((error) => console.error(error));
     }
   };
+
   const handleEditPost = () => {
     if (isAuthor) {
       navigate(`/edit-post/${post.$id}`);
@@ -43,15 +42,19 @@ function Post() {
   };
 
   return (
-    <>
-      <h1>test</h1>
-
+    <div className="max-w-4xl mx-auto px-4 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
       {isAuthor && (
-        <div className="flex justify-end gap-4 mb-4">
-          <button onClick={handleEditPost} className="btn btn-primary">
+        <div className="flex justify-end gap-4 mb-6">
+          <button
+            onClick={handleEditPost}
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition"
+          >
             Edit
           </button>
-          <button onClick={handleDeletePost} className="btn btn-danger">
+          <button
+            onClick={handleDeletePost}
+            className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 transition"
+          >
             Delete
           </button>
         </div>
@@ -59,13 +62,20 @@ function Post() {
 
       {post && (
         <>
-          <div className="w-full mb-6">
-            <h1 className="text-2xl font-bold">{post.title}</h1>
+          <div className="mb-6">
+            <h1 className="text-3xl font-extrabold text-gray-800 dark:text-white mb-2">
+              {post.title}
+            </h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              By {post.username || "Anonymous"}
+            </p>
           </div>
-          <div className="browser-css">{parse(post.content)}</div>
+          <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400">
+            {parse(post.content)}
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 
