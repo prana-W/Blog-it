@@ -34,28 +34,27 @@ class dbService {
   }
 
   //Update an existing database (Post)
-  async updatePost({ content, slug, featuredImage, status }) {
+  async updatePost(slug, { content, featuredImage, status }) {
     try {
-      return await this.database.updatePost(
+      return await this.database.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
         {
-          title,
           content,
           featuredImage,
-          status,
-        }
+          status
+        },
       );
     } catch (error) {
-      console.error("There was a problem in updating post.");
+      console.error("There was a problem in updating post.", error);
     }
   }
 
   //To delete an existing Post
   async deletePost(slug) {
     try {
-      await this.database.deletePost(
+      await this.database.deleteDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug

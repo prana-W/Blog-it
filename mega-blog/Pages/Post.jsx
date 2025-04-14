@@ -38,7 +38,7 @@ function Post() {
   };
   const handleEditPost = () => {
     if (isAuthor) {
-      navigate(`/edit/${post.$id}`);
+      navigate(`/edit-post/${post.$id}`);
     }
   };
 

@@ -35,7 +35,7 @@ function PostForm({ post }) {
 
       const dbPost = await databaseService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : post.featuredImage,
+        featuredImage: (file ? file.$id : post.featuredImage),
       });
 
       if (dbPost) {

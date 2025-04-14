@@ -10,6 +10,7 @@ import AuthLayout from "./components/AuthLayout.jsx";
 import AllPosts from "../Pages/AllPosts.jsx";
 import AddPost from "../Pages/AddPost.jsx";
 import Post from "../Pages/Post.jsx";
+import EditPost from "../Pages/EditPost.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ const routes = createBrowserRouter([
         path: "/edit-post/:slug",
         element: (
           <AuthLayout authentication={true}>
-          <AddPost/>
+          <EditPost/>
           </AuthLayout>
   
           )
