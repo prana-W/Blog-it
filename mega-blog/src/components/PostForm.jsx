@@ -1,11 +1,16 @@
 import React, { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import storageService from "../appwrite/storage";
 import databaseService from "../appwrite/database";
+import { useSelector, useDispatch } from "react-redux";
+import Input from "./Input";
+import Select from "./Select";
+import RTE from "./RTE";
+import Button from "./Button";
 
 function PostForm({ post }) {
-  const { register, handleSubmit, watch, setValue, getValues } = useForm({
+  const { register, handleSubmit, watch, setValue, getValues, control } = useForm({
     defaultValues: {
       title: post?.title || "",
       slug: post?.$id || "",
@@ -36,27 +41,30 @@ function PostForm({ post }) {
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
-    } else {
+    }
+     else {
       const file = await storageService.uploadFile(data.image[0]);
 
-      const dbPost = await databaseService.createPost({
-        ...data,
-        userId: userData.$id,
-        //we have added a default image in the storage, which will be used when the user hasn't uplaoded any file
-        featuredImage: file ? file.$id : "defaultImage",
-      });
+      if (file) {
+        const fileId = file.$id;
+        data.featuredImage = fileId;
+        const dbPost = await databaseService.createPost({
+          ...data,
+          userId: userData.$id,
+        });
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     }
-  };
+  }
+}
 
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
       return value.trim().toLowerCase().replace(/\s+/g, "-");
     }
-    return ""
+    return "";
   }, []);
 
   React.useEffect(() => {
@@ -98,7 +106,7 @@ function PostForm({ post }) {
       </div>
       <div className="w-1/3 px-2">
         <Input
-          label="Featured Image :"
+          label="Featured Image:"
           type="file"
           className="mb-4"
           accept="image/png, image/jpg, image/jpeg, image/gif"
@@ -107,7 +115,7 @@ function PostForm({ post }) {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFileView(post.featuredImage)}
+              src={storageService.fileView(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

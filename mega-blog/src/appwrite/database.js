@@ -10,26 +10,26 @@ class dbService {
       .setEndpoint(conf.appwriteURL)
       .setProject(conf.appwriteProjectId);
 
-    this.database = new Databases(this.client);
+    this.database = new Databases(this.client); 
   }
 
   //Creating a Post
   async createPost({ title, content, slug, featuredImage, status, userId }) {
     try {
-      return await database.createDocument(
-        appwriteDatabaseId,
-        appwriteCollectionId,
+      return await this.database.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
         slug,
         {
           title,
           content,
           featuredImage,
           status,
-          userId,
+          userId
         }
       );
     } catch (error) {
-      console.error("There was an error in creating post.");
+      console.error("There was an error in creating post.", error);
     }
   }
 
@@ -91,7 +91,7 @@ class dbService {
         queries
       );
     } catch (error) {
-      console.error("There was a problem in getting post!");
+      console.error("Error in getPosts:", error.message);
       return false;
     }
   }

@@ -7,6 +7,7 @@ function AllPosts() {
   const [posts, setPosts] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+
   React.useEffect(() => {
     databaseService
       .getPosts()
@@ -17,7 +18,7 @@ function AllPosts() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (!(loading && error))
+  if (!(loading && error) && posts.length > 0)
     return (
       <div className="w-full py-8">
         <Container>

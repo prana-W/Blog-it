@@ -30,7 +30,7 @@ class StorageService {
   //Delete File
   async deleteFile(fileId) {
     try {
-      await this.storage.deleteFile(conf.appwriteBuckefileId, fileId);
+      await this.storage.deleteFile(conf.appwriteBucketId, fileId);
       return true;
     } catch (error) {
       console.error("There was an error in deleeting the file!");

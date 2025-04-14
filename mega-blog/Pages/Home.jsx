@@ -10,6 +10,8 @@ function Home() {
       if (posts) {
         setPosts(posts.documents)
       }
+    }).catch ((error) => {
+      console.error(error)
     })
 
   }, [])

@@ -11,7 +11,6 @@ function PostCard({$id, title, featuredImage}) {
         <div>{title}</div>
     
     
-    
     </Link>
   )
 }

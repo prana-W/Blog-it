@@ -2,8 +2,6 @@ import React from 'react'
 import {Editor} from '@tinymce/tinymce-react'
 import { Controller } from 'react-hook-form'
 
-
-
 function RTE({name, control, label, defaultValue = ""}) { 
   return (
     <div className="w-full">
@@ -12,11 +10,10 @@ function RTE({name, control, label, defaultValue = ""}) {
         name={name || "content"}
         control={control}
         render={({ field: { onChange } }) => (
-          <Editor
+          <Editor          
             apiKey="hrd2ti11xdayp1gebh4xqg198q90m1y0fvytkwzglpbw9gx9"
             initialValue={defaultValue}
             init={{
-              initialValue: defaultValue,
               height: 500,
               menubar: true,
               plugins: [
@@ -25,7 +22,6 @@ function RTE({name, control, label, defaultValue = ""}) {
                 "autolink",
                 "lists",
                 "link",
-                "image",
                 "charmap",
                 "preview",
                 "anchor",
@@ -36,10 +32,8 @@ function RTE({name, control, label, defaultValue = ""}) {
                 "insertdatetime",
                 "media",
                 "table",
-                "code",
                 "help",
-                "wordcount",
-                "anchor"
+                "wordcount"
               ],
               toolbar:
                 "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
@@ -48,10 +42,12 @@ function RTE({name, control, label, defaultValue = ""}) {
             }}
             onEditorChange={onChange}
           />
+         
         )}
       />
     </div>
   )
+
 }
 
 export default RTE
